@@ -49,7 +49,7 @@ void Plane::Generate(unsigned short frame[8][8])
 			{
 				for (unsigned short length = 0; length < size[1]; length++)
 				{
-					frame[origin[1]+length][origin[2]] = (frame[origin[1]+length][origin[2]] | 1 << (origin[0]+width));
+					frame[origin[1]+length][origin[2]+length] = (frame[origin[1]+length][origin[2]+length] | 1 << (origin[0]+width));
 				}
 				
 			}
@@ -57,6 +57,32 @@ void Plane::Generate(unsigned short frame[8][8])
 		break;
 		
 		case 2:
+			
+			for (unsigned short width = 0; width < size[0]; width++)
+			{
+				for (unsigned short length = 0; length < size[1]; length++)
+				{
+					frame[origin[1]+length][origin[2]] = (frame[origin[1]+length][origin[2]] | 1 << (origin[0]+width));
+				}
+				
+			}
+		
+		break;
+		
+		case 3:
+		
+		for (unsigned short width = 0; width < size[0]; width++)
+		{
+			for (unsigned short length = 0; length < size[1]; length++)
+			{
+				frame[origin[1]+length][origin[2]-length] = (frame[origin[1]+length][origin[2]-length] | 1 << (origin[0]+width));
+			}
+			
+		}
+		
+		break;
+		
+		case 4:
 		
 			for (unsigned short width = 0; width < size[0]; width++)
 			{
@@ -69,7 +95,20 @@ void Plane::Generate(unsigned short frame[8][8])
 		
 		break;
 		
-		case 3:
+		case 5:
+		
+		for (unsigned short width = 0; width < size[0]; width++)
+		{
+			for (unsigned short length = 0; length < size[1]; length++)
+			{
+				frame[origin[1]-length][origin[2]-length] = (frame[origin[1]-length][origin[2]-length] | 1 << (origin[0]+width));
+			}
+			
+		}
+		
+		break;
+		
+		case 6:
 		
 			for (unsigned short width = 0; width < size[0]; width++)
 			{
@@ -81,6 +120,19 @@ void Plane::Generate(unsigned short frame[8][8])
 			}		
 		
 		break;
+		
+		case 7:
+		
+		for (unsigned short width = 0; width < size[0]; width++)
+		{
+			for (unsigned short length = 0; length < size[1]; length++)
+			{
+				frame[origin[1]-length][origin[2]+length] = (frame[origin[1]-length][origin[2]+length] | 1 << (origin[0]+width));
+			}
+			
+		}
+		
+		break;
 	}
 	
 
@@ -89,7 +141,7 @@ void Plane::Generate(unsigned short frame[8][8])
 void Plane::RotateX()
 {
 	orientation++;
-	if (orientation > 3)
+	if (orientation > 7)
 	{
 		orientation = 0;
 	}
