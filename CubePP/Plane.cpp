@@ -24,30 +24,7 @@ Plane::Plane(unsigned short x, unsigned short y, unsigned short z, unsigned shor
 	size[1] = length;
 	orientation = startOrientation;
 } //Plane
-/*
-unsigned short *Plane::Draw()
-{
-	unsigned short initFrame[8][8]= {
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0},
-		{0,0,0,0,0,0,0,0}
-	};
 
-
-
-	
-
-	unsigned short *result = (unsigned short *)malloc(sizeof(short) * 8 * 8);
-	memcpy(result, initFrame, sizeof(short) * 8 * 8);
-
-	return result;
-}
-*/
 void Plane::Generate(unsigned short frame[8][8])
 {
 	

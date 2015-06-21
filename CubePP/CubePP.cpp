@@ -51,7 +51,7 @@ int main(void)
 	
 	InitTimer();
 	
-	Plane myPlane(6, 1, 0, 2, 2, 3);
+	Plane myPlane(3, 3, 3, 3, 3, 3);
 	
 	//Rain rainGenerator(4);
 	
@@ -62,6 +62,7 @@ int main(void)
 		_delay_ms(500);
 		LEDCube.ShiftDown();
 		*/
+		/*
 		for (unsigned short i = 0; i < 3; i++)
 		{
 			LEDCube.Add(myPlane.Draw());
@@ -79,6 +80,16 @@ int main(void)
 			myPlane.origin[1] = 1;
 			myPlane.orientation = 3;
 		}
+		*/
+		
+		for (unsigned short i = 0; i < 3; i++)
+		{
+			LEDCube.Add(myPlane.Draw());
+			_delay_ms(250);
+			LEDCube.Clear();
+			myPlane.RotateX();
+		}		
+		
 
     }
 }

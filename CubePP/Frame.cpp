@@ -13,6 +13,7 @@ unsigned short layer = 0;
 unsigned short strip = 0;
 unsigned short counter = 0;
 unsigned short frame[8][8];
+unsigned short cleared = false;
 
 // default constructor
 Frame::Frame()
@@ -45,33 +46,36 @@ Frame::Frame()
 */
 void Frame::Draw()
 {
-	if (counter < 1)
+	if (cleared == false)
 	{
-		PORTB = 0b00001000; // Disable output on shift register
+		if (counter < 1)
+		{
+			PORTB = 0b00001000; // Disable output on shift register
 
-		for (strip = 0; strip < 8; strip++)
-		{
-			PORTB = 0b00001000 | strip;
-			PORTA = this->frame[layer][strip];
-		}
+			for (strip = 0; strip < 8; strip++)
+			{
+				PORTB = 0b00001000 | strip;
+				PORTA = this->frame[layer][strip];
+			}
 			
-		PORTB = 0; // Output enable shift register
-		PORTC = (1 << layer); // Enable layer
+			PORTB = 0; // Output enable shift register
+			PORTC = (1 << layer); // Enable layer
 			
-		counter++;
+			counter++;
 			
-	}
-	else
-	{
-		counter = 0;
-			
-		if (layer < 7)
-		{
-			layer++;
 		}
 		else
 		{
-			layer = 0;
+			counter = 0;
+			
+			if (layer < 7)
+			{
+				layer++;
+			}
+			else
+			{
+				layer = 0;
+			}
 		}
 	}
 }
@@ -94,6 +98,7 @@ void Frame::SetPixelAt(unsigned short x, unsigned short y, unsigned short z, boo
 
 void Frame::Clear()
 {
+	cleared = true;
 	for (unsigned short l = 0; l < 8; l++)
 	{
 		for (unsigned short s = 0; s < 8; s++)
@@ -137,6 +142,7 @@ void Frame::ShiftDown()
 
 void Frame::Add(unsigned short *shape)
 {
+	cleared = false;
 	for (unsigned short l = 0; l < 8; l++)
 	{
 		for (unsigned short s = 0; s < 8; s++)
